@@ -19,7 +19,9 @@ const options = {
   }
 }
 
-
+app.use('/', (req, res) => {
+  res.send('hello world');
+})
 routerApi(app);
 
 app.use(logErrors);
