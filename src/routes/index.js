@@ -6,7 +6,7 @@ function routerApi(app) {
   const router = express.Router();
 
   app.use('/api/v1', router);
-  router.use('/medical-clinics', (req, res) =>{ res.send('llega aqui')});
+  router.use('/medical-clinics', medicalClinics);
 }
 
 module.exports = routerApi;

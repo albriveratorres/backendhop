@@ -14,7 +14,7 @@ const medicalClinicsService = new MedicalClinicsService();
 
 router.get('/', async (req, res) => {
   const medicalClinics = await medicalClinicsService.find();
-
+console.log(medicalClinics);
   res.json(medicalClinics);
 });
 
