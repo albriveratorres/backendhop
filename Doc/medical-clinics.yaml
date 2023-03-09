@@ -1,0 +1,321 @@
+openapi: 3.0.0
+x-stoplight:
+  id: bb194som8nwty
+info:
+  title: Medical-Clinics
+  version: '1.0'
+  contact:
+    name: Alberto Rivera
+    email: alb.riveratorres@gmail.com
+servers:
+  - url: 'https://backendhop.vercel.app/api/v1'
+    description: Alberto Rivera
+paths:
+  /medical-clinics/:
+    parameters: []
+    get:
+      summary: Obtener una lista de clínicas médicas.
+      tags: []
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                x-examples:
+                  Example 1:
+                    - id: 1555
+                      name: Beier Inc
+                      direction: West
+                      city: Padbergchester
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    direction:
+                      type: string
+                    city:
+                      type: string
+                  required:
+                    - id
+                    - name
+                    - city
+              examples:
+                Example 1:
+                  value:
+                    - id: 0
+                      name: string
+                      direction: string
+                      city: string
+      operationId: get-medical-clinics
+      description: 'Se obtiene un listado de las clínicas médicas, este listado es fake y se extrae de una librería, manejando únicamente arreglos, no está en nuestro control que los datos persistan ya que se guardan en memoria en alguna parte por el momento, paulatinamente se realizara la persistencia de datos en una base de datos de MySql, valga la redundancia.'
+    post:
+      summary: Crear nueva clínica médica.
+      operationId: post-medical-clinics
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 400
+                    error: Bad Request
+                    message: '"name" is required'
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: '"name" is required'
+      description: "Agregara una nueva clínica medica al arreglo, se necesita nombre y ciudad\_ para poder ser agregada, recordemos que los datos son volátiles, próximamente se añadirá una base de datos a la conexión."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  name: Howell - Hartmann
+                  direction: Southeast
+                  city: Worcester
+              properties:
+                name:
+                  type: string
+                direction:
+                  type: string
+                city:
+                  type: string
+              required:
+                - name
+                - city
+            examples:
+              Example 1:
+                value:
+                  name: string
+                  direction: string
+                  city: string
+      x-extension-1: null
+  '/medical-clinics/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: id de la clinica a buscar
+    get:
+      summary: Obtener clínica médica.
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  direction:
+                    type: string
+                  city:
+                    type: string
+                x-examples:
+                  Example 1:
+                    id: 49612
+                    name: Howell - Hartmann
+                    direction: Southeast
+                    city: Worcester
+              examples:
+                Example 1:
+                  value:
+                    id: 0
+                    name: string
+                    direction: string
+                    city: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 400
+                    error: Bad Request
+                    message: '"id" must be a number'
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: '"id" must be a number'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 404
+                    error: Not Found
+                    message: Clinica no encontrada
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 404
+                    error: Not Found
+                    message: Clinica no encontrada
+      operationId: get-medical-clinics-id
+      description: 'Se busca por id una clínica medica mandándole por params, recordemos que los datos solo persisten en memoria, se irán guardando en una base de datos de MySql paulatinamente.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  id: 49612
+                  name: Howell - Hartmann
+                  direction: Southeast
+                  city: Worcester
+            examples: {}
+    patch:
+      summary: ''
+      operationId: patch-medical-clinics
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  direction:
+                    type: string
+                  city:
+                    type: string
+                x-examples:
+                  Example 1:
+                    id: 99933
+                    name: Pfannerstill
+                    direction: Northwest
+                    city: West Deangeloview
+              examples:
+                Example 1:
+                  value:
+                    id: 0
+                    name: string
+                    direction: string
+                    city: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 400
+                    error: Bad Request
+                    message: '"id" must be a number'
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: '"id" must be a number'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 404
+                    error: Not Found
+                    message: Clinica no encontrada
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 404
+                    error: Not Found
+                    message: Clinica no encontrada
+      description: 'Actualiza una clínica medica por id enviado por los params, en el body se le envía los datos a actualizar, recordando que los datos del sistema son volátiles, próximamente se agregara una base de datos de MySql.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                direction:
+                  type: string
+                city:
+                  type: string
+              x-examples:
+                Example 1:
+                  name: Pfannerstill
+                  direction: Northwest
+                  city: West Deangeloview
+            examples:
+              Example 1:
+                value:
+                  name: string
+                  direction: string
+                  city: string
+components:
+  schemas: {}
