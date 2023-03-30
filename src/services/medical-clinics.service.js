@@ -1,6 +1,8 @@
 const { faker } = require('@faker-js/faker');
 const boom = require('@hapi/boom');
 
+const sequelize = require('../../libs/sequelize');
+
 class MedicalClinicsService {
   constructor() {
     this.clinics = [];
@@ -29,12 +31,14 @@ class MedicalClinicsService {
   }
 
   async find() {
-    return this.clinics;
+    const query = 'SELECT * FROM clinics';
+    const [data, metadata] = await sequelize.query(query);
+    return { data, metadata };
   }
 
   async findOne(id) {
     const medicalClinic = this.clinics.find((element) => element.id == id);
-    if(!medicalClinic){
+    if (!medicalClinic) {
       throw boom.notFound('Clinica no encontrada');
     }
     return medicalClinic;
@@ -42,24 +46,24 @@ class MedicalClinicsService {
 
   async update(id, changes) {
     const index = this.clinics.findIndex((element) => element.id == id);
-    if(index === -1){
+    if (index === -1) {
       throw boom.notFound('Clinica no encontrada');
     }
     const medicalClinics = this.clinics[index];
     this.clinics[index] = {
       ...medicalClinics,
-      ...changes
-    }
+      ...changes,
+    };
     return this.clinics[index];
   }
 
   async delete(id) {
     const index = this.clinics.findIndex((element) => element.id == id);
-    if(index === -1){
+    if (index === -1) {
       throw boom.notFound('Clinica no encontrada');
     }
     this.clinics.splice(index, 1);
-    return{ id };
+    return { id };
   }
 }
 
