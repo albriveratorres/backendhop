@@ -1,8 +1,5 @@
 require('dotenv').config();
-const { Sequelize } = require('sequelize');
-const setupModels = require('../db/models');
-
-const { config } = require('./../config/config');
+const { config } = require('../config/config');
 
 let USER, PASSWORD, URI;
 switch (process.env.NODE_ENV) {
@@ -25,11 +22,17 @@ switch (process.env.NODE_ENV) {
     break;
 }
 
-const sequelize = new Sequelize(URI, {
-  dialect: 'mysql',
-  logging: true,
-});
-
-setupModels(sequelize);
-
-module.exports = sequelize;
+module.exports = {
+  development: {
+    url: URI,
+    dialect: 'mysql',
+  },
+  test: {
+    url: URI,
+    dialect: 'mysql',
+  },
+  production: {
+    url: URI,
+    dialect: 'mysql',
+  },
+};
